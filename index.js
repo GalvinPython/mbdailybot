@@ -6,27 +6,14 @@
 import { CronJob } from "cron";
 import { promises as fs } from 'fs';
 
-let latestUpdate: number;
+let latestUpdate;
 
 const job = new CronJob('0 0 0 * * *', async function () {
     // Saves the actual confirmed subscriber count
-    await fetch("https://backend.instastatistics.com/instagram/subcount/UCX6OQ3DkcsbYNE6H8uQQuVA", {
-        "headers": {
-            "accept": "*/*",
-            "accept-language": "en-GB,en;q=0.9,en-US;q=0.8",
-            "cache-control": "max-age=0",
-            "if-none-match": "",
-            "priority": "u=1, i",
-            "sec-ch-ua": "\"Chromium\";v=\"124\", \"Microsoft Edge\";v=\"124\", \"Not-A.Brand\";v=\"99\"",
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": "\"Windows\"",
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "cross-site"
-        }
-    }).then(res => res.json())
+    await fetch("https://nia-statistics.com/api/get?platform=youtube&type=channel&id=UCX6OQ3DkcsbYNE6H8uQQuVA")
+        .then(res => res.json())
         .then(async data => {
-            latestUpdate = parseInt(data.items[0].statistics.subscriberCount);
+            latestUpdate = parseInt(data.estSubCount);
 
             // Read the JSON file to get the latest saved subscriber count
             const fileData = await fs.readFile('latestMrBeastConfirmed.json', 'utf-8');
