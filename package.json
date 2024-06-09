@@ -1,10 +1,7 @@
 {
   "name": "mrbeast-daily-twitter",
-  "module": "index.ts",
+  "module": "index.js",
   "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
   "dependencies": {
     "cron": "^3.1.7"
   }
