@@ -20,8 +20,8 @@ const job = new CronJob('0 0 0 * * *', async function () {
             const parsedFileData = JSON.parse(fileData);
             const latestSavedSubs = parsedFileData.subs;
 
-            const difference = parseInt(latestUpdate - latestSavedSubs);
-            const tweetText = `Update for ${new Date(new Date().getTime() - 1000 * 60 * 60).toLocaleDateString('en-GB')}\nConfirmed subscriber count: ${latestUpdate.toLocaleString()}\nDifference: ${difference}`;
+            const difference = latestUpdate - latestSavedSubs;
+            const tweetText = `Update for ${new Date(new Date().getTime() - 1000 * 60 * 60).toLocaleDateString('en-GB')}\nConfirmed subscriber count: ${parseInt(latestUpdate).toLocaleString()}\nDifference: ${difference}`;
 
             // Make Tweet
             await fetch(`https://twitter.com/i/api/graphql/${process.env.QUERY_ID}/CreateTweet`, {
