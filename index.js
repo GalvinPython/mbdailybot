@@ -1,6 +1,5 @@
 /**
  * This code is for the latest version of the bot
- * This code is no longer used, and doesn't include the Discord updates that were made to private chats
  */
 
 import { CronJob } from "cron";
@@ -21,7 +20,7 @@ const job = new CronJob('0 0 0 * * *', async function () {
             const latestSavedSubs = parsedFileData.subs;
 
             const difference = latestUpdate - latestSavedSubs;
-            const tweetText = `Update for ${new Date(new Date().getTime() - 1000 * 60 * 60).toLocaleDateString('en-GB')}\nConfirmed subscriber count: ${parseInt(latestUpdate).toLocaleString()}\nDifference: ${difference}`;
+            const tweetText = `Update for ${new Date(new Date().getTime() - 1000 * 60 * 60).toLocaleDateString('en-GB')}\nConfirmed subscriber count: ${parseInt(latestUpdate).toLocaleString()}\nGained today: ${parseInt(difference).toLocaleString()}`;
 
             // Make Tweet
             await fetch(`https://twitter.com/i/api/graphql/${process.env.QUERY_ID}/CreateTweet`, {
@@ -105,7 +104,7 @@ const job = new CronJob('0 0 0 * * *', async function () {
                     "Referer": "",
                     "Referrer-Policy": "strict-origin-when-cross-origin"
                 },
-                "body": `{\"mobile_network_type\":\"unknown\",\"content\":\"**MrBeast Subscriber Update**\n\n${tweetText}\nDifference: ${difference}\",\"tts\":false,\"flags\":0}`,
+                "body": `{\"mobile_network_type\":\"unknown\",\"content\":\"**MrBeast Subscriber Update**\n\n${tweetText}\",\"tts\":false,\"flags\":0}`,
                 "method": "POST"
             });
 
